@@ -8,4 +8,6 @@ abstract class _LoginStoreBase with Store {
   String login = "";
   @observable
   String password = "";
+  @observable
+  String acessToken = "";
 }
