@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 
 class FormFieldModel extends StatefulWidget {
   String hint;
-  void Function(String?) onSaved;
+  void Function(String?)? onSaved;
   IconData icon;
   bool? obscure;
   String? Function(String?)? validator;
+  TextEditingController? textEditingController;
   FormFieldModel({
     this.validator,
     this.obscure,
     required this.hint,
-    required this.onSaved,
+    this.textEditingController,
+    this.onSaved,
     required this.icon,
     super.key,
   });
@@ -53,6 +55,7 @@ class _FormFieldModelState extends State<FormFieldModel> {
       child: TextFormField(
         validator: widget.validator,
         obscureText: obscure,
+        controller: widget.textEditingController,
         decoration: InputDecoration(
           hintText: widget.hint,
           enabledBorder: borderStyle,

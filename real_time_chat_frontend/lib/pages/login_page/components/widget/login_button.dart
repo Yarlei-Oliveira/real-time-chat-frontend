@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:real_time_chat_frontend/pages/login_page/components/login_functions.dart';
 import 'package:real_time_chat_frontend/stores/login.store.dart';
-import 'package:real_time_chat_frontend/utils/theme.dart';
 
 class LoginButton extends StatelessWidget {
-  LoginFunctions loginFunctions;
-  GlobalKey<FormState> globalKey;
-  MultiSourceResult Function(Map<String, dynamic>, {Object? optimisticResult})
-      runMutation;
-  LoginButton(this.globalKey, this.loginFunctions, this.runMutation,
-      {super.key});
+  Function onPress;
+  String text;
+  Color backgroundColor;
+  LoginButton(this.backgroundColor, this.text, this.onPress, {super.key});
   LoginStore loginStore = GetIt.I<LoginStore>();
   @override
   Widget build(BuildContext context) {
@@ -22,15 +17,17 @@ class LoginButton extends StatelessWidget {
       children: [
         Container(
             height: 40,
-            width: width * .2,
+            width: width * .4,
             decoration: BoxDecoration(
-                color: ColorsTheme.primary_color,
+                color: backgroundColor,
                 borderRadius: BorderRadius.circular(10)),
             child: TextButton(
-              onPressed: () => loginFunctions.signIn(globalKey, runMutation),
-              child: const Text(
-                "Entrar",
-                style: TextStyle(color: Colors.white),
+              onPressed: () async {
+                await onPress();
+              },
+              child: Text(
+                text,
+                style: const TextStyle(color: Colors.white),
               ),
             ))
       ],

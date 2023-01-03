@@ -6,8 +6,9 @@ import 'package:real_time_chat_frontend/pages/login_page/components/validators/l
 import 'package:real_time_chat_frontend/pages/login_page/components/widget/login_button.dart';
 import 'package:real_time_chat_frontend/pages/login_page/components/widget/text_form_field.dart';
 import 'package:real_time_chat_frontend/stores/login.store.dart';
-import 'package:real_time_chat_frontend/utils/constants.dart';
+import 'package:real_time_chat_frontend/utils/navigators.dart';
 import 'package:real_time_chat_frontend/utils/querys/Query.dart';
+import 'package:real_time_chat_frontend/utils/theme.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -24,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
     LoginFunctions loginFunctions = LoginFunctions(loginStore: loginStore);
     return Mutation(
       options: MutationOptions(
-        document: gql(QueryRepository.singupQuery),
+        document: gql(QueryRepository.singinQuery),
         onCompleted: (data) {
           loginFunctions.loginCompleted(context, data);
         },
@@ -64,7 +65,18 @@ class _LoginPageState extends State<LoginPage> {
                           icon: Icons.lock,
                         ),
                         const SizedBox(height: 10),
-                        LoginButton(formkey, loginFunctions, runMutation)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            LoginButton(ColorsTheme.second_color, "Cadastrar",
+                                Navigation(context: context).goSignup),
+                            LoginButton(
+                              ColorsTheme.primary_color,
+                              "Entrar",
+                              () => loginFunctions.signIn(formkey, runMutation),
+                            ),
+                          ],
+                        )
                       ],
                     ))
               ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
 class ColorsTheme {
-  static const primary_color = Colors.deepPurple;
+  static final primary_color = Color.fromARGB(255, 8, 44, 99);
+  static final second_color = Color.fromARGB(255, 22, 82, 173);
 }

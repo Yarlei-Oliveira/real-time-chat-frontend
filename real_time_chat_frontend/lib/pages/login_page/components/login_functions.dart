@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:real_time_chat_frontend/models/user.dart';
 import 'package:real_time_chat_frontend/stores/login.store.dart';
-import 'package:real_time_chat_frontend/utils/constants.dart';
 import 'package:real_time_chat_frontend/utils/navigators.dart';
 
 class LoginFunctions {
   LoginStore loginStore;
   LoginFunctions({required this.loginStore});
-  void signIn(
-      GlobalKey<FormState> globalKey,
-      MultiSourceResult Function(Map<String, dynamic>,
-              {Object? optimisticResult})
-          runMutation) {
+  void signIn(GlobalKey<FormState> globalKey, Function runMutation) {
     if (!globalKey.currentState!.validate()) {
       return;
     } else {
       globalKey.currentState!.save();
       runMutation({
         "varLogin": {
-          "username": loginStore.login,
+          "email": loginStore.login,
           "password": loginStore.password,
         }
       });
@@ -40,7 +35,7 @@ class LoginFunctions {
                 ],
               ));
     } else {
-      loginStore.acessToken = data["login"]?["acess_token"];
+      loginStore.userLogin = UserLogin.fromJson(data);
       Navigation(context: context).goHome();
     }
   }

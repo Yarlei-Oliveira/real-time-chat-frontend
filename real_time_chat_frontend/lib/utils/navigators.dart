@@ -5,5 +5,15 @@ class Navigation {
   BuildContext context;
   Navigation({required this.context});
 
-  void goHome() => Navigator.pushReplacementNamed(context, Routes.HOME_PAGE);
+  void goHome() async {
+    await Navigator.pushReplacementNamed(context, Routes.HOME_PAGE);
+  }
+
+  void goSignup() async {
+    await Navigator.pushNamed(context, Routes.SIGNUP_PAGE);
+  }
+
+  void goLogin() async {
+    await Navigator.pushNamed(context, Routes.LOGIN_PAGE);
+  }
 }

@@ -25,10 +25,44 @@ mixin _$LoginStore on _LoginStoreBase, Store {
     });
   }
 
+  late final _$passwordAtom =
+      Atom(name: '_LoginStoreBase.password', context: context);
+
+  @override
+  String get password {
+    _$passwordAtom.reportRead();
+    return super.password;
+  }
+
+  @override
+  set password(String value) {
+    _$passwordAtom.reportWrite(value, super.password, () {
+      super.password = value;
+    });
+  }
+
+  late final _$acessTokenAtom =
+      Atom(name: '_LoginStoreBase.acessToken', context: context);
+
+  @override
+  String get acessToken {
+    _$acessTokenAtom.reportRead();
+    return super.acessToken;
+  }
+
+  @override
+  set acessToken(String value) {
+    _$acessTokenAtom.reportWrite(value, super.acessToken, () {
+      super.acessToken = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
-login: ${login}
+login: ${login},
+password: ${password},
+acessToken: ${acessToken}
     ''';
   }
 }
